@@ -1,14 +1,27 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.matriz;
 
+import br.com.modelos.Departamento;
 import br.com.modelos.Produto;
+import br.controller.DepartamentoController;
 import br.controller.ProdutoController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Bonato
+ */
 public class CadastrarProd extends JFrame {
     
     private Object bean;
@@ -17,13 +30,25 @@ public class CadastrarProd extends JFrame {
      */
     public CadastrarProd() {
         initComponents();
+        DepartamentoController control = null;                     
+                    try {
+                        control = new DepartamentoController();
+                    } catch (Exception ex) {
+                        Logger.getLogger(CadastrarDep.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    List<Departamento> lista = new ArrayList<Departamento>();
+                    lista = control.findAll();
+                    for (int i = 0; i < lista.size(); i++) { 
+                          jComboBox2.addItem(lista.get(i).getNome());
+  
+        } 
+        
         
         jButton4.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ProdutoMenu p = new ProdutoMenu();
-                setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }
@@ -40,9 +65,9 @@ public class CadastrarProd extends JFrame {
                  }
                  else {
                      Produto prd = new Produto();
-                     prd.setNomeProd(jTextField2.getText());
-                     prd.setPrecoProd(Double.parseDouble(jTextField3.getText()));
-                     prd.setCategProd(jComboBox2.getSelectedItem().toString());
+                     prd.setNome(jTextField2.getText().toUpperCase());
+                     prd.setPreco(Double.parseDouble(jTextField3.getText()));
+                     prd.setDepto(jComboBox2.getSelectedItem().toString());
                      ProdutoController control = null;                     
                     try {
                         control = new ProdutoController();
@@ -50,8 +75,10 @@ public class CadastrarProd extends JFrame {
                         Logger.getLogger(CadastrarDep.class.getName()).log(Level.SEVERE, null, ex);
                     }
                      control.create(prd);
-                     dispose();
                      JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso");
+                     ProdutoMenu depM = new ProdutoMenu();
+                     depM.setVisible(true);
+                     dispose();
                      
                  }
             }
@@ -138,8 +165,6 @@ public class CadastrarProd extends JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));

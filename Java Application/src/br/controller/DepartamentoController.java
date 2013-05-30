@@ -4,7 +4,7 @@
  */
 package br.controller;
 
-import br.com.interfaces.ConsoleFacadeRemote;
+import br.com.interfaces.DepartamentoRemote;
 import br.com.modelos.Departamento;
 import java.util.List;
 import java.util.Properties;
@@ -18,13 +18,13 @@ import javax.naming.InitialContext;
 public class DepartamentoController {
      
     @EJB 
-    private ConsoleFacadeRemote consoleFacade;
+    private DepartamentoRemote consoleFacade;
 
     public DepartamentoController() throws Exception {
         Properties props = new Properties();
         props.load(new java.io.FileInputStream("jndi.properties"));
         InitialContext ctx = new InitialContext();
-        consoleFacade = (ConsoleFacadeRemote) ctx.lookup("ejb/CadastroDepartamentoBean");
+        consoleFacade = (DepartamentoRemote) ctx.lookup("ejb/CadastroDepartamentoBean");
     }
 
     public void create(Departamento entity) {
@@ -41,6 +41,10 @@ public class DepartamentoController {
     
     public List<Departamento> findAll() {
         return (consoleFacade.findAll());
+    }
+    
+    public Departamento find(Object id) {
+        return (consoleFacade.find(id));
     }
     
 }

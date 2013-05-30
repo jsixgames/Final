@@ -8,15 +8,15 @@ public class Main {
 //        RelatorioProdutos rp = new RelatorioProdutos();
 //        rp.setLocationRelativeTo(null);
 //        rp.setVisible(true);
-        
+//        
         
 //        Login lg = new Login();
 //        lg.setLocationRelativeTo(null);
 //        lg.setVisible(true);
 //        
-//        MatrizHome mh = new MatrizHome();
-//        mh.setLocationRelativeTo(null);
-//        mh.setVisible(true);
+        MatrizHome mh = new MatrizHome();
+        mh.setLocationRelativeTo(null);
+        mh.setVisible(true);
         
 //        Departamento d = new Departamento();
 //        d.setLocationRelativeTo(null);

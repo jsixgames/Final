@@ -4,7 +4,8 @@
  */
 package br.controller;
 
-import br.com.interfaces.ProdutoFacadeRemote;
+import br.com.interfaces.ProdutoRemote;
+import br.com.modelos.Departamento;
 import br.com.modelos.Produto;
 import java.util.List;
 import java.util.Properties;
@@ -18,13 +19,13 @@ import javax.naming.InitialContext;
 public class ProdutoController {
 
     @EJB
-    private ProdutoFacadeRemote produtoFacade;
+    private ProdutoRemote produtoFacade;
 
     public ProdutoController() throws Exception {
         Properties props = new Properties();
         props.load(new java.io.FileInputStream("jndi.properties"));
         InitialContext ctx = new InitialContext(props);
-        produtoFacade = (ProdutoFacadeRemote) ctx.lookup("ejb/CadastroProdutoBean");
+        produtoFacade = (ProdutoRemote) ctx.lookup("ejb/CadastroProdutoBean");
     }
 
     public void create(Produto entity) {
@@ -43,5 +44,7 @@ public class ProdutoController {
         return (produtoFacade.findAll());
     }
     
-    
+        public Produto find(Object id) {
+        return (produtoFacade.find(id));
+    }
 }
