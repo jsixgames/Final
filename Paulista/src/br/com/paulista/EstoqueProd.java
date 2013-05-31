@@ -11,6 +11,8 @@ import br.controller.ProdutoController;
 import br.tabelas.TabelaEstoque;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +31,7 @@ public class EstoqueProd extends JFrame {
      */
     public EstoqueProd() {
         initComponents(); 
+        jButton6.setVisible(false);
         jTable1.getColumnModel().getColumn(0).setHeaderValue("Código");     
         jTable1.getColumnModel().getColumn(1).setHeaderValue("Nome");     
         jTable1.getColumnModel().getColumn(2).setHeaderValue("QTD");     
@@ -57,11 +60,64 @@ public class EstoqueProd extends JFrame {
             }
 
         });
+        
+        jButton6.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                AtualizarEst ph = new AtualizarEst(atualizaProduto());
+                ph.setLocationRelativeTo(null);
+                ph.setVisible(true);
+                dispose();
+            }
+
+        });
+        
      List<EstoquePaulista> lista = listarProdutos();
         TabelaEstoque tabelaProd = new TabelaEstoque(lista);
         jTable1.setModel(tabelaProd);
+        jTable1.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jButton6.setVisible(true); 
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                jButton6.setVisible(true);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            
+            }
+        });
         jTable1.repaint();
         
+    }
+    
+    EstoquePaulista atualizaProduto(){
+        EstoquePaulista prd = new EstoquePaulista();
+        String id = jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,0).toString();
+        prd.setId(Long.parseLong(id));
+        prd.setNomeProd(jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,1).toString());
+        String pre = jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,2).toString();
+        prd.setPrecoProd(Double.parseDouble(pre));
+        prd.setCategProd(jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,3).toString());
+        String qtd = jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,4).toString();
+        prd.setQtd(Integer.parseInt(qtd));      
+        return prd;
     }
     
     List<EstoquePaulista> listarProdutos(){

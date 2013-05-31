@@ -9,7 +9,6 @@ import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
 import br.controller.EstoqueController;
 import br.controller.ProdutoController;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -21,15 +20,24 @@ import javax.swing.JOptionPane;
  *
  * @author Bonato
  */
-public class AdicionarEst extends JFrame {
+public class AtualizarEst extends JFrame {
     
     private Object bean;
 
     /**
      * Creates new customizer CadastrarProd
      */
-    public AdicionarEst() {
+    public AtualizarEst(EstoquePaulista estPaulista) {
         initComponents();
+        jTextField12.setEditable(false);
+        jTextField12.setText(String.valueOf(estPaulista.getId()));
+        jTextField11.setEditable(false);
+        jTextField11.setText(estPaulista.getNomeProd());
+        jTextField13.setEditable(false);
+        jTextField13.setText(String.valueOf(estPaulista.getPrecoProd()));
+        jTextField14.setEditable(false);
+        jTextField14.setText(estPaulista.getCategProd().toString());
+        jTextField15.setText(String.valueOf(estPaulista.getQtd()));
         jButton17.addActionListener(new ActionListener() {
 
             @Override
@@ -41,66 +49,33 @@ public class AdicionarEst extends JFrame {
             }
 
         });
-         jLabel1.setVisible(false);
-        jButton15.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if(jTextField12.getText().isEmpty()){
-                    jLabel1.setVisible(true);
-                }else{
-                        ProdutoController control = null;
-                    try {
-                        control = new ProdutoController();
-                    } catch (Exception ex) {
-                        Logger.getLogger(AdicionarEst.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                              
-                    Object index = jTextField12.getText().toString();
-                    Produto est = new Produto();
-                    est = control.find(index);
-                    
-                    
-                    jTextField11.setText(est.getNome());
-                    jTextField13.setText(String.valueOf(est.getPreco()));
-                    jTextField14.setText(est.getDepto());
-                    jTextField14.setEditable(false);
 
-                }
-                
-                
-            }
-
-        });
         jButton16.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if(jTextField11.getText().isEmpty() || jTextField13.getText().isEmpty()){
-                    jLabel1.setText("Todos os campos desvem possuir dados");
-                    jLabel1.setVisible(true);
-                }else{
-                
-                     EstoqueController control = null;
+
+                    EstoqueController control = null;
                     try {
                         control = new EstoqueController();
                     } catch (Exception ex) {
-                        Logger.getLogger(AdicionarEst.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AtualizarEst.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
+
                      EstoquePaulista prod = new EstoquePaulista();
                      prod.setId(Long.parseLong(jTextField12.getText()));
                      prod.setNomeProd(jTextField11.getText().toUpperCase());
                      prod.setPrecoProd(Double.parseDouble(jTextField13.getText()));
                      prod.setCategProd(jTextField14.getText());
                      prod.setQtd(Integer.parseInt(jTextField15.getText()));
-                     control.create(prod);
-                     JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
-                     VendasBalcao depM = new VendasBalcao();
-                     depM.setVisible(true);
+                     control.edit(prod);
+                     JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+                     EstoqueProd vb = new EstoqueProd();
+                     vb.setVisible(true);
+                     vb.setLocationRelativeTo(null);
                      dispose();
-                }
+                
             }
 
         });
@@ -133,11 +108,9 @@ public class AdicionarEst extends JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
-        jButton15 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jTextField15 = new javax.swing.JTextField();
@@ -163,7 +136,7 @@ public class AdicionarEst extends JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(580, 430));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 28)); // NOI18N
-        jLabel2.setText("Adicionar Produto no Estoque");
+        jLabel2.setText("Atualizar Produto no Estoque");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel2);
 
@@ -185,18 +158,11 @@ public class AdicionarEst extends JFrame {
 
         jTextField13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton15.setText("Buscar");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         jLabel18.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel18.setText("Nome: ");
         jLabel18.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jButton16.setText("Adicionar");
+        jButton16.setText("Atualizar");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -209,10 +175,6 @@ public class AdicionarEst extends JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel1.setText("Favor informar 'ID' para busca");
 
         jTextField14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -234,27 +196,21 @@ public class AdicionarEst extends JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField11)
+                            .addComponent(jTextField14)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jTextField11)
-                                    .addComponent(jTextField14)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField12))
                         .addGap(0, 98, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -266,11 +222,9 @@ public class AdicionarEst extends JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel17)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
@@ -288,9 +242,7 @@ public class AdicionarEst extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -331,16 +283,10 @@ public class AdicionarEst extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
