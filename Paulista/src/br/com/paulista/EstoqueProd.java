@@ -4,8 +4,16 @@
  */
 package br.com.paulista;
 
+import br.com.modelos.EstoquePaulista;
+import br.com.modelos.Produto;
+import br.controller.EstoqueController;
+import br.controller.ProdutoController;
+import br.tabelas.TabelaEstoque;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -49,7 +57,23 @@ public class EstoqueProd extends JFrame {
             }
 
         });
+     List<EstoquePaulista> lista = listarProdutos();
+        TabelaEstoque tabelaProd = new TabelaEstoque(lista);
+        jTable1.setModel(tabelaProd);
+        jTable1.repaint();
+        
     }
+    
+    List<EstoquePaulista> listarProdutos(){
+           EstoqueController control = null;
+         try {
+            control = new EstoqueController();
+         } catch (Exception ex) {
+         }
+             List<EstoquePaulista> lista = control.findAll();
+         return lista;
+
+        }
     
     @SuppressWarnings("unchecked")
     
