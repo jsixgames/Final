@@ -6,6 +6,7 @@ package br.controller;
 
 import br.com.interfaces.ProdutoRemote;
 import br.com.modelos.Departamento;
+import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
 import java.util.List;
 import java.util.Properties;
@@ -47,4 +48,5 @@ public class ProdutoController {
         public Produto find(Object id) {
         return (produtoFacade.find(id));
     }
+        
 }

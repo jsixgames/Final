@@ -5,7 +5,6 @@
 package br.com.matriz;
 
 import br.com.modelos.Produto;
-import br.controller.DepartamentoController;
 import br.controller.ProdutoController;
 import br.tabelas.TabelaProduto;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,7 +46,7 @@ public class ListaProd extends JFrame {
     }
     
     List<Produto> listarProdutos(){
-            ProdutoController control = null;
+           ProdutoController control = null;
          try {
             control = new ProdutoController();
          } catch (Exception ex) {

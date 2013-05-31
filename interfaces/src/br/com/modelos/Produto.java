@@ -13,7 +13,7 @@ public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_prod;
+    private Long id;
     private String nome;
     private String depto;
     private double preco;
@@ -21,12 +21,12 @@ public class Produto implements Serializable {
     public Produto() {
     }
 
-    public Long getId_prod() {
-        return id_prod;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_prod(Long id_prod) {
-        this.id_prod = id_prod;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -58,7 +58,7 @@ public class Produto implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.id_prod);
+        hash = 41 * hash + Objects.hashCode(this.id);
         hash = 41 * hash + Objects.hashCode(this.nome);
         hash = 41 * hash + Objects.hashCode(this.depto);
         hash = 41 * hash + (int) (Double.doubleToLongBits(this.preco) ^ (Double.doubleToLongBits(this.preco) >>> 32));
@@ -74,7 +74,7 @@ public class Produto implements Serializable {
             return false;
         }
         final Produto other = (Produto) obj;
-        if (!Objects.equals(this.id_prod, other.id_prod)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {
@@ -92,7 +92,7 @@ public class Produto implements Serializable {
     @Override
     public String toString() {
         return "<tr>"+
-                "<td id='listaclientelinhas'>"+id_prod+"</td>"+
+                "<td id='listaclientelinhas'>"+id+"</td>"+
                 "<td id='listaclientelinhas'>"+nome+"</td>"+
                 "<td id='listaclientelinhas'>"+depto+"</td>"+
                 "<td id='listaclientelinhas'>"+preco+"</td>"+                

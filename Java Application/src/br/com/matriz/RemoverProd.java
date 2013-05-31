@@ -77,7 +77,7 @@ public class RemoverProd extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                      Produto prd = new Produto();
-                     prd.setId_prod(Long.parseLong(jTextField1.getText()));
+                     prd.setId(Long.parseLong(jTextField1.getText()));
                      ProdutoController control = null;                     
                     try {
                         control = new ProdutoController();
@@ -108,7 +108,7 @@ public class RemoverProd extends JFrame {
                         Logger.getLogger(AlterarDep.class.getName()).log(Level.SEVERE, null, ex);
                     }
                      Produto prod = new Produto();
-                     prod.setId_prod(Long.parseLong(jTextField1.getText()));
+                     prod.setId(Long.parseLong(jTextField1.getText()));
                      control.remove(prod);
                      JOptionPane.showMessageDialog(null, "Produto removido com sucesso!");
                      ProdutoMenu depM = new ProdutoMenu();

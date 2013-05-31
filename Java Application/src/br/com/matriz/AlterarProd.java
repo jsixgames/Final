@@ -81,7 +81,7 @@ public class AlterarProd extends JFrame {
                         Logger.getLogger(AlterarDep.class.getName()).log(Level.SEVERE, null, ex);
                     }
                      Produto prod = new Produto();
-                     prod.setId_prod(Long.parseLong(jTextField12.getText()));
+                     prod.setId(Long.parseLong(jTextField12.getText()));
                      prod.setNome(jTextField11.getText().toUpperCase());
                      prod.setPreco(Double.parseDouble(jTextField13.getText()));
                      prod.setDepto(jTextField14.getText());

@@ -5,6 +5,7 @@
 package br.com.matriz;
 
 import br.com.modelos.Departamento;
+import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
 import br.controller.DepartamentoController;
 import br.controller.ProdutoController;
@@ -30,7 +31,7 @@ public class CadastrarProd extends JFrame {
      */
     public CadastrarProd() {
         initComponents();
-        DepartamentoController control = null;                     
+                    DepartamentoController control = null;                     
                     try {
                         control = new DepartamentoController();
                     } catch (Exception ex) {
@@ -74,7 +75,7 @@ public class CadastrarProd extends JFrame {
                     } catch (Exception ex) {
                         Logger.getLogger(CadastrarDep.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                     control.create(prd);
+                     control.create(prd); 
                      JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso");
                      ProdutoMenu depM = new ProdutoMenu();
                      depM.setVisible(true);
@@ -84,9 +85,11 @@ public class CadastrarProd extends JFrame {
             }
         });
         
-        
+
     }
-    
+ 
+            
+            
     @SuppressWarnings("unchecked")
     
     public void setObject(Object bean) {

@@ -4,7 +4,7 @@
  */
 package br.com.interfaces;
 
-import br.com.modelos.Estoque;
+import br.com.modelos.EstoquePaulista;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -15,18 +15,20 @@ import javax.ejb.Remote;
 @Remote
 public interface EstoqueRemote {
 
-    void create(Estoque produto);
+    void create(EstoquePaulista produto);
 
-    void edit(Estoque produto);
+    void edit(EstoquePaulista produto);
 
-    void remove(Estoque produto);
+    void remove(EstoquePaulista produto);
 
-    Estoque find(Object id);
+    EstoquePaulista find(Object id);
 
-    List<Estoque> findAll();
+    List<EstoquePaulista> findAll();
 
-    List<Estoque> findRange(int[] range);
+    List<EstoquePaulista> findRange(int[] range);
 
     int count();
+
+    
     
 }

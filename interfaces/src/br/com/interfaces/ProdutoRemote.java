@@ -1,5 +1,6 @@
 package br.com.interfaces;
 
+import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
 import java.util.List;
 import javax.ejb.Remote;

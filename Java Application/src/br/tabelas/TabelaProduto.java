@@ -61,7 +61,7 @@ public class TabelaProduto extends AbstractTableModel {
         //Precisamos retornar o valor da coluna column e da linha row.   
         Produto titulo = valores.get(row);   
         if (column == COD_PROD) 
-            return titulo.getId_prod();   
+            return titulo.getId();   
         else if (column == NOME_PROD) 
             return titulo.getNome(); 
         else if (column == PRECO_PROD) 
@@ -76,7 +76,7 @@ public class TabelaProduto extends AbstractTableModel {
         //Vamos alterar o valor da coluna columnIndex na linha rowIndex com o valor aValue passado no parâmetro.   
         //Note que vc poderia alterar 2 campos ao invés de um só.   
         if (columnIndex== COD_PROD) 
-            titulo.setId_prod(aValue.getId_prod());   
+            titulo.setId(aValue.getId());   
         else if (columnIndex== NOME_PROD) 
             titulo.setNome(aValue.getNome());   
         else if (columnIndex== PRECO_PROD) 
