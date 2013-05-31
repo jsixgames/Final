@@ -4,24 +4,28 @@
  */
 package br.com.beans;
 
-import br.com.interfaces.ProdutoRemote;
-import br.com.modelos.Departamento;
+import br.com.interfaces.EstoqueRemote;
 import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 /**
  *
  * @author Calebe de Paula Bianchini
  */
-@Stateless(mappedName = "ejb/CadastroProdutoBean")
-public class CadastroProdutoBean extends AbstractFacade<Produto> implements ProdutoRemote {
+@Stateless(mappedName = "ejb/CadastroEstoqueBean")
+public class CadastroEstoqueBean extends AbstractFacade<EstoquePaulista> implements EstoqueRemote {
 
     @PersistenceContext(unitName = "bgproject-ejbPU")
     private EntityManager em;
@@ -30,21 +34,26 @@ public class CadastroProdutoBean extends AbstractFacade<Produto> implements Prod
     protected EntityManager getEntityManager() {
         return em;
     }
-
-    public CadastroProdutoBean() {
-        super(Produto.class);
-    }
     
+    @Override
+    public void create(EstoquePaulista entity) {
+        getEntityManager().persist(entity);
+    }
+
+    public CadastroEstoqueBean() {
+        super(EstoquePaulista.class);
+    }
 
     @Override
-        public Produto find(Object id) {
+        public EstoquePaulista find(Object id) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Produto> c = cb.createQuery(Produto.class);
-        Root<Produto> venda = c.from(Produto.class);
+        CriteriaQuery<EstoquePaulista> c = cb.createQuery(EstoquePaulista.class);
+        Root<EstoquePaulista> venda = c.from(EstoquePaulista.class);
         c.where(cb.equal(venda.get("id"), cb.parameter(String.class, "id")));
         TypedQuery q = getEntityManager().createQuery(c);
         q.setParameter("id", id);
-        return (Produto) q.getSingleResult();
+        return (EstoquePaulista) q.getSingleResult();
     }
-    
+
+
 }
