@@ -4,8 +4,16 @@
  */
 package br.com.paulista;
 
+import br.com.modelos.EstoquePaulista;
+import br.com.modelos.ItensVenda;
+import br.tabelas.TabelaEstoque;
+import br.tabelas.TabelaVendas;
+import br.vendas.ListaDeItensVenda;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -46,7 +54,37 @@ public class VendasBalcao extends JFrame {
             }
 
         });
-        
+        List<ItensVenda> lista = ListaDeItensVenda.getListaItensVenda();
+        TabelaVendas tabelaProd = new TabelaVendas(lista);
+        jTable1.setModel(tabelaProd);
+        jTable1.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jButton6.setVisible(true); 
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                jButton6.setVisible(true);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            
+            }
+        });
+        jTable1.repaint();
     }
     
     @SuppressWarnings("unchecked")
@@ -193,9 +231,9 @@ public class VendasBalcao extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
