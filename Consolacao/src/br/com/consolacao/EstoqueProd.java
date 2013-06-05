@@ -2,20 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.paulista;
+package br.com.consolacao;
 
-import br.com.modelos.EstoquePaulista;
-import br.com.modelos.Produto;
-import br.controller.EstoquePaulistaController;
-import br.controller.ProdutoController;
+
+
+import br.com.modelos.EstoqueConsolacao;
+import br.controller.EstoqueConsolacaoController;
 import br.tabelas.TabelaEstoque;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -73,7 +71,7 @@ public class EstoqueProd extends JFrame {
 
         });
         
-     List<EstoquePaulista> lista = listarProdutos();
+     List<EstoqueConsolacao> lista = listarProdutos();
         TabelaEstoque tabelaProd = new TabelaEstoque(lista);
         jTable1.setModel(tabelaProd);
         jTable1.addMouseListener(new MouseListener() {
@@ -107,8 +105,8 @@ public class EstoqueProd extends JFrame {
         
     }
     
-    EstoquePaulista atualizaProduto(){
-        EstoquePaulista prd = new EstoquePaulista();
+    EstoqueConsolacao atualizaProduto(){
+        EstoqueConsolacao prd = new EstoqueConsolacao();
         String id = jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,0).toString();
         prd.setId(Long.parseLong(id));
         prd.setNomeProd(jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,1).toString());
@@ -120,13 +118,13 @@ public class EstoqueProd extends JFrame {
         return prd;
     }
     
-    List<EstoquePaulista> listarProdutos(){
-           EstoquePaulistaController control = null;
+    List<EstoqueConsolacao> listarProdutos(){
+           EstoqueConsolacaoController control = null;
          try {
-            control = new EstoquePaulistaController();
+            control = new EstoqueConsolacaoController();
          } catch (Exception ex) {
          }
-             List<EstoquePaulista> lista = control.findAll();
+             List<EstoqueConsolacao> lista = control.findAll();
          return lista;
 
         }

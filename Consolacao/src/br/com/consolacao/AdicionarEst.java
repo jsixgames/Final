@@ -2,15 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.paulista;
+package br.com.consolacao;
 
 
-import br.com.modelos.EstoquePaulista;
-import br.com.modelos.ItensVenda;
+import br.com.modelos.EstoqueConsolacao;
 import br.com.modelos.Produto;
-import br.controller.EstoquePaulistaController;
+import br.controller.EstoqueConsolacaoController;
 import br.controller.ProdutoController;
-import br.vendas.ListaDeItensVenda;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,62 +16,56 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SpinnerNumberModel;
 
 /**
  *
  * @author Bonato
  */
-public class AdicionarPed extends JFrame {
+public class AdicionarEst extends JFrame {
     
     private Object bean;
 
     /**
      * Creates new customizer CadastrarProd
      */
-    public AdicionarPed() {
+    public AdicionarEst() {
         initComponents();
-        
-        jTextField11.setEditable(false);
-        jTextField13.setEditable(false);
-        jSpinner1.setEnabled(false);
-        
         jButton17.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                VendasBalcao vb = new VendasBalcao();
+                EstoqueProd vb = new EstoqueProd();
                 vb.setVisible(true);
                 vb.setLocationRelativeTo(null);
                 dispose();
             }
 
         });
+         jLabel1.setVisible(false);
         jButton15.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if(jTextField12.getText().isEmpty()){
+                    jLabel1.setVisible(true);
                 }else{
-                        EstoquePaulistaController control = null;
+                        ProdutoController control = null;
                     try {
-                        control = new EstoquePaulistaController();
+                        control = new ProdutoController();
                     } catch (Exception ex) {
-                        Logger.getLogger(AdicionarPed.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AdicionarEst.class.getName()).log(Level.SEVERE, null, ex);
                     }
                               
                     Object index = jTextField12.getText().toString();
-                    EstoquePaulista est = new EstoquePaulista();
+                    Produto est = new Produto();
                     est = control.find(index);
                     
-                    jTextField11.setEditable(true);
-                    jTextField13.setEditable(true);
-                    jSpinner1.setEnabled(true);
                     
-                    jTextField11.setText(est.getNomeProd());
-                    jTextField13.setText(String.valueOf(est.getPrecoProd()));
-                    SpinnerNumberModel model = new SpinnerNumberModel(1, 1, est.getQtd(), 1);
-                    jSpinner1.setModel(model);
+                    jTextField11.setText(est.getNome());
+                    jTextField13.setText(String.valueOf(est.getPreco()));
+                    jTextField14.setText(est.getDepto());
+                    jTextField14.setEditable(false);
+
                 }
                 
                 
@@ -84,19 +76,31 @@ public class AdicionarPed extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-
-                     ItensVenda prod = new ItensVenda();
+                if(jTextField11.getText().isEmpty() || jTextField13.getText().isEmpty()){
+                    jLabel1.setText("Todos os campos desvem possuir dados");
+                    jLabel1.setVisible(true);
+                }else{
+                
+                     EstoqueConsolacaoController control = null;
+                    try {
+                        control = new EstoqueConsolacaoController();
+                    } catch (Exception ex) {
+                        Logger.getLogger(AdicionarEst.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
+                     EstoqueConsolacao prod = new EstoqueConsolacao();
                      prod.setId(Long.parseLong(jTextField12.getText()));
                      prod.setNomeProd(jTextField11.getText().toUpperCase());
                      prod.setPrecoProd(Double.parseDouble(jTextField13.getText()));
-                     prod.setQtd(Integer.parseInt(jSpinner1.getValue().toString()));
-                     prod.setPrecoPinal(prod.getPrecoProd()*prod.getQtd());
-                     ListaDeItensVenda.insereLista(prod);
-                     JOptionPane.showMessageDialog(null, "Item adicionado com sucesso!");
+                     prod.setCategProd(jTextField14.getText());
+                     prod.setQtd(Integer.parseInt(jTextField15.getText()));
+                     control.create(prod);
+                     JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
                      VendasBalcao depM = new VendasBalcao();
                      depM.setVisible(true);
                      dispose();
-                
+                }
             }
 
         });
@@ -126,14 +130,17 @@ public class AdicionarPed extends JFrame {
         jTextField11 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
         jButton15 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField14 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        jTextField15 = new javax.swing.JTextField();
 
         jButton4.setText("Voltar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +163,7 @@ public class AdicionarPed extends JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(580, 430));
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 28)); // NOI18N
-        jLabel2.setText("Adicionar Produto no Pedido");
+        jLabel2.setText("Adicionar Produto no Estoque");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel2);
 
@@ -167,6 +174,10 @@ public class AdicionarPed extends JFrame {
         jLabel15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         jTextField12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel16.setText("Dep.: ");
+        jLabel16.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         jLabel17.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel17.setText("Id: ");
@@ -199,11 +210,17 @@ public class AdicionarPed extends JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel1.setText("Favor informar 'ID' para busca");
+
+        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         jLabel19.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel19.setText("QTD.:");
         jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jSpinner1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -212,33 +229,38 @@ public class AdicionarPed extends JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jTextField11)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 98, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(185, 185, 185)))))
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jTextField11)
+                                    .addComponent(jTextField14)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 98, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(193, 193, 193)
+                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,16 +276,21 @@ public class AdicionarPed extends JFrame {
                     .addComponent(jLabel18)
                     .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15)
-                        .addComponent(jLabel19))
-                    .addComponent(jSpinner1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addGap(30, 30, 30)
-                .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -275,7 +302,7 @@ public class AdicionarPed extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +311,7 @@ public class AdicionarPed extends JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2);
@@ -313,7 +340,9 @@ public class AdicionarPed extends JFrame {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -322,9 +351,10 @@ public class AdicionarPed extends JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
     // End of variables declaration//GEN-END:variables
 }

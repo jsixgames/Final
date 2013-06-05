@@ -9,6 +9,7 @@
     <class>br.com.modelos.Departamento</class>
     <class>br.com.modelos.EstoquePaulista</class>
     <class>br.com.modelos.ItensVenda</class>
+    <class>br.com.modelos.EstoqueConsolacao</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.format_sql" value="true"/>

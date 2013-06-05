@@ -7,7 +7,7 @@ package br.com.paulista;
 
 import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
-import br.controller.EstoqueController;
+import br.controller.EstoquePaulistaController;
 import br.controller.ProdutoController;
 
 import java.awt.event.ActionEvent;
@@ -81,9 +81,9 @@ public class AdicionarEst extends JFrame {
                     jLabel1.setVisible(true);
                 }else{
                 
-                     EstoqueController control = null;
+                     EstoquePaulistaController control = null;
                     try {
-                        control = new EstoqueController();
+                        control = new EstoquePaulistaController();
                     } catch (Exception ex) {
                         Logger.getLogger(AdicionarEst.class.getName()).log(Level.SEVERE, null, ex);
                     }

@@ -2,16 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.paulista;
+package br.com.consolacao;
 
 
-import br.com.modelos.EstoquePaulista;
+import br.com.modelos.EstoqueConsolacao;
 import br.com.modelos.ItensVenda;
-import br.com.modelos.Produto;
-import br.controller.EstoquePaulistaController;
-import br.controller.ProdutoController;
+import br.controller.EstoqueConsolacaoController;
 import br.vendas.ListaDeItensVenda;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -55,15 +52,15 @@ public class AdicionarPed extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 if(jTextField12.getText().isEmpty()){
                 }else{
-                        EstoquePaulistaController control = null;
+                        EstoqueConsolacaoController control = null;
                     try {
-                        control = new EstoquePaulistaController();
+                        control = new EstoqueConsolacaoController();
                     } catch (Exception ex) {
                         Logger.getLogger(AdicionarPed.class.getName()).log(Level.SEVERE, null, ex);
                     }
                               
                     Object index = jTextField12.getText().toString();
-                    EstoquePaulista est = new EstoquePaulista();
+                    EstoqueConsolacao est = new EstoqueConsolacao();
                     est = control.find(index);
                     
                     jTextField11.setEditable(true);
@@ -275,7 +272,7 @@ public class AdicionarPed extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

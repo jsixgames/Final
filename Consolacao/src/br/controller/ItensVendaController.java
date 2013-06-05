@@ -4,10 +4,8 @@
  */
 package br.controller;
 
-
-import br.com.interfaces.EstoqueRemote;
-import br.com.modelos.EstoquePaulista;
-import br.com.modelos.Produto;
+import br.com.interfaces.ItensVendaRemote;
+import br.com.modelos.ItensVenda;
 import java.util.List;
 import java.util.Properties;
 import javax.ejb.EJB;
@@ -15,38 +13,37 @@ import javax.naming.InitialContext;
 
 /**
  *
- * @author Calebe de Paula Bianchini
+ * @author Jeckson Sacramento Bernardino
  */
-public class EstoqueController {
+public class ItensVendaController {
 
     @EJB
-    private EstoqueRemote produtoFacade;
+    private ItensVendaRemote produtoFacade;
 
-    public EstoqueController() throws Exception {
+    public ItensVendaController() throws Exception {
         Properties props = new Properties();
         props.load(new java.io.FileInputStream("jndi.properties"));
         InitialContext ctx = new InitialContext(props);
-        produtoFacade = (EstoqueRemote) ctx.lookup("ejb/CadastroEstoqueBean");
+        produtoFacade = (ItensVendaRemote) ctx.lookup("ejb/CadastroItensVendaBean");
     }
 
-    public void create(EstoquePaulista entity) {
+    public void create(ItensVenda entity) {
         produtoFacade.create(entity);
     }
 
-    public void edit(EstoquePaulista entity) {
+    public void edit(ItensVenda entity) {
         produtoFacade.edit(entity);
     }
     
-    public void remove(EstoquePaulista entity) {
+    public void remove(ItensVenda entity) {
         produtoFacade.remove(entity);
     }
     
-    public List<EstoquePaulista> findAll() {
+    public List<ItensVenda> findAll() {
         return (produtoFacade.findAll());
     }
     
-    public EstoquePaulista find(Object id) {
+        public ItensVenda find(Object id) {
         return (produtoFacade.find(id));
     }
-
 }

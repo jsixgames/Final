@@ -13,7 +13,7 @@ import javax.ejb.Remote;
  * @author Calebe de Paula Bianchini
  */
 @Remote
-public interface EstoqueRemote {
+public interface EstoquePaulistaRemote {
 
     void create(EstoquePaulista produto);
 

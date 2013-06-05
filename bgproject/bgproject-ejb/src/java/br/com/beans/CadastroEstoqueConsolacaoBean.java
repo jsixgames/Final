@@ -4,28 +4,23 @@
  */
 package br.com.beans;
 
-import br.com.interfaces.EstoqueRemote;
-import br.com.modelos.EstoquePaulista;
-import br.com.modelos.Produto;
-import java.util.List;
+import br.com.interfaces.EstoqueConsolacaoRemote;
+import br.com.modelos.EstoqueConsolacao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
+
 import javax.persistence.criteria.Root;
 
 /**
  *
  * @author Calebe de Paula Bianchini
  */
-@Stateless(mappedName = "ejb/CadastroEstoqueBean")
-public class CadastroEstoqueBean extends AbstractFacade<EstoquePaulista> implements EstoqueRemote {
+@Stateless(mappedName = "ejb/CadastroEstoqueConsolacaoBean")
+public class CadastroEstoqueConsolacaoBean extends AbstractFacade<EstoqueConsolacao> implements EstoqueConsolacaoRemote {
 
     @PersistenceContext(unitName = "bgproject-ejbPU")
     private EntityManager em;
@@ -36,23 +31,23 @@ public class CadastroEstoqueBean extends AbstractFacade<EstoquePaulista> impleme
     }
     
     @Override
-    public void create(EstoquePaulista entity) {
+    public void create(EstoqueConsolacao entity) {
         getEntityManager().persist(entity);
     }
 
-    public CadastroEstoqueBean() {
-        super(EstoquePaulista.class);
+    public CadastroEstoqueConsolacaoBean() {
+        super(EstoqueConsolacao.class);
     }
 
     @Override
-        public EstoquePaulista find(Object id) {
+        public EstoqueConsolacao find(Object id) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<EstoquePaulista> c = cb.createQuery(EstoquePaulista.class);
-        Root<EstoquePaulista> venda = c.from(EstoquePaulista.class);
+        CriteriaQuery<EstoqueConsolacao> c = cb.createQuery(EstoqueConsolacao.class);
+        Root<EstoqueConsolacao> venda = c.from(EstoqueConsolacao.class);
         c.where(cb.equal(venda.get("id"), cb.parameter(String.class, "id")));
         TypedQuery q = getEntityManager().createQuery(c);
         q.setParameter("id", id);
-        return (EstoquePaulista) q.getSingleResult();
+        return (EstoqueConsolacao) q.getSingleResult();
     }
 
 

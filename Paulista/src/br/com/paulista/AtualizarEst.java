@@ -7,7 +7,7 @@ package br.com.paulista;
 
 import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
-import br.controller.EstoqueController;
+import br.controller.EstoquePaulistaController;
 import br.controller.ProdutoController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,9 +56,9 @@ public class AtualizarEst extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
-                    EstoqueController control = null;
+                    EstoquePaulistaController control = null;
                     try {
-                        control = new EstoqueController();
+                        control = new EstoquePaulistaController();
                     } catch (Exception ex) {
                         Logger.getLogger(AtualizarEst.class.getName()).log(Level.SEVERE, null, ex);
                     }
