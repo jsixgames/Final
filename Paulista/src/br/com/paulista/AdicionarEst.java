@@ -9,9 +9,11 @@ import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
 import br.controller.EstoquePaulistaController;
 import br.controller.ProdutoController;
+import br.vendas.ListaDeItensVenda;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -47,19 +49,18 @@ public class AdicionarEst extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if(jTextField12.getText().isEmpty()){
-                    jLabel1.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Necessario informar ID para busca");
                 }else{
                         ProdutoController control = null;
                     try {
                         control = new ProdutoController();
                     } catch (Exception ex) {
-                        Logger.getLogger(AdicionarEst.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Não trabalhamos no momentonto com este produto");
                     }
                               
                     Object index = jTextField12.getText().toString();
                     Produto est = new Produto();
                     est = control.find(index);
-                    
                     
                     jTextField11.setText(est.getNome());
                     jTextField13.setText(String.valueOf(est.getPreco()));
@@ -88,23 +89,49 @@ public class AdicionarEst extends JFrame {
                         Logger.getLogger(AdicionarEst.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    
-                     EstoquePaulista prod = new EstoquePaulista();
-                     prod.setId(Long.parseLong(jTextField12.getText()));
-                     prod.setNomeProd(jTextField11.getText().toUpperCase());
-                     prod.setPrecoProd(Double.parseDouble(jTextField13.getText()));
-                     prod.setCategProd(jTextField14.getText());
-                     prod.setQtd(Integer.parseInt(jTextField15.getText()));
-                     control.create(prod);
-                     JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
-                     VendasBalcao depM = new VendasBalcao();
-                     depM.setVisible(true);
-                     dispose();
+                     if(jTextField15.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Necessario definir uma quantidade para o produto");
+                     }else if(Integer.parseInt(jTextField15.getText()) < 1){
+                        JOptionPane.showMessageDialog(null, "Necessario definir uma quantidade maior ou igual a 0");
+                     }else{
+                        verificaEstoque(Long.parseLong(jTextField12.getText()));
+                        EstoquePaulista prod = new EstoquePaulista();
+                        prod.setId(Long.parseLong(jTextField12.getText()));
+                        prod.setNomeProd(jTextField11.getText().toUpperCase());
+                        prod.setPrecoProd(Double.parseDouble(jTextField13.getText()));
+                        prod.setCategProd(jTextField14.getText());
+                        prod.setQtd(Integer.parseInt(jTextField15.getText()));
+                        control.create(prod);
+                        JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
+                        EstoqueProd depM = new EstoqueProd();
+                        depM.setLocationRelativeTo(null);
+                        depM.setVisible(true);
+                        dispose();
+                     }
                 }
             }
 
         });
         
+    }
+    
+    public void verificaEstoque(Long index){
+        EstoquePaulistaController control = null;
+        try {
+            control = new EstoquePaulistaController();
+            
+        } catch (Exception ex) {
+        }
+        List<EstoquePaulista> lista = control.findAll();
+        for(int i = 0; i < lista.size();i++){
+            if(lista.get(i).getId() == index){
+                JOptionPane.showMessageDialog(null, "Este produto já esta cadastrado no estoque favor atualiza-lo");
+                EstoqueProd estP= new EstoqueProd();
+                estP.setLocationRelativeTo(null);
+                estP.setVisible(true);
+                dispose();
+            }
+        }
     }
     
     @SuppressWarnings("unchecked")

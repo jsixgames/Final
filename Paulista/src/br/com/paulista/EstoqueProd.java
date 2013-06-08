@@ -5,17 +5,13 @@
 package br.com.paulista;
 
 import br.com.modelos.EstoquePaulista;
-import br.com.modelos.Produto;
 import br.controller.EstoquePaulistaController;
-import br.controller.ProdutoController;
 import br.tabelas.TabelaEstoque;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**

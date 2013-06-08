@@ -34,6 +34,7 @@ public class AlterarDep extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 DepartamentoMenu dep = new DepartamentoMenu();
                 dep.setVisible(true);
+                dep.setLocationRelativeTo(null);
                 dispose();
             }
 
@@ -87,6 +88,7 @@ public class AlterarDep extends JFrame {
                      control.edit(dep);
                      JOptionPane.showMessageDialog(null, "Plataforma alterada com sucesso!");
                      DepartamentoMenu depM = new DepartamentoMenu();
+                     depM.setLocationRelativeTo(null);
                      depM.setVisible(true);
                      dispose();
                 }

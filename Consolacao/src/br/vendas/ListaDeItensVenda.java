@@ -4,7 +4,8 @@
  */
 package br.vendas;
 
-import br.com.modelos.ItensVenda;
+import br.com.modelos.ItensVendaConsolacao;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class ListaDeItensVenda {
     
-    private static List<ItensVenda> listaItensVenda = new ArrayList<ItensVenda>();
+    private static List<ItensVendaConsolacao> listaItensVenda = new ArrayList<ItensVendaConsolacao>();
     
     private ListaDeItensVenda(){
         
@@ -22,13 +23,21 @@ public class ListaDeItensVenda {
     
     }
     
-    public static void insereLista(ItensVenda item){
+    public static void insereLista(ItensVendaConsolacao item){
         listaItensVenda.add(item);
     }
     
-    public static List<ItensVenda> getListaItensVenda(){
-        List<ItensVenda> lista = listaItensVenda;
+    public static void removeLista(int item){
+        listaItensVenda.remove(item);
+    }
+    
+    public static List<ItensVendaConsolacao> getListaItensVenda(){
+        List<ItensVendaConsolacao> lista = listaItensVenda;
         return lista;
+    }
+    
+    public static void iniciaLista(){
+        listaItensVenda = new ArrayList<ItensVendaConsolacao>();
     }
     
 }

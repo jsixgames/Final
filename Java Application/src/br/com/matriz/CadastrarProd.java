@@ -5,7 +5,6 @@
 package br.com.matriz;
 
 import br.com.modelos.Departamento;
-import br.com.modelos.EstoquePaulista;
 import br.com.modelos.Produto;
 import br.controller.DepartamentoController;
 import br.controller.ProdutoController;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -26,18 +24,19 @@ import javax.swing.JOptionPane;
 public class CadastrarProd extends JFrame {
     
     private Object bean;
+    private List<Departamento> lista;  
     /**
      * Creates new customizer CadastrarProd
      */
     public CadastrarProd() {
         initComponents();
-                    DepartamentoController control = null;                     
+                  DepartamentoController control = null;         
                     try {
                         control = new DepartamentoController();
                     } catch (Exception ex) {
                         Logger.getLogger(CadastrarDep.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    List<Departamento> lista = new ArrayList<Departamento>();
+                    lista = new ArrayList<Departamento>();
                     lista = control.findAll();
                     for (int i = 0; i < lista.size(); i++) { 
                           jComboBox2.addItem(lista.get(i).getNome());
@@ -50,6 +49,7 @@ public class CadastrarProd extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ProdutoMenu p = new ProdutoMenu();
+                p.setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }
@@ -66,6 +66,7 @@ public class CadastrarProd extends JFrame {
                  }
                  else {
                      Produto prd = new Produto();
+                     
                      prd.setNome(jTextField2.getText().toUpperCase());
                      prd.setPreco(Double.parseDouble(jTextField3.getText()));
                      prd.setDepto(jComboBox2.getSelectedItem().toString());
@@ -78,6 +79,7 @@ public class CadastrarProd extends JFrame {
                      control.create(prd); 
                      JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso");
                      ProdutoMenu depM = new ProdutoMenu();
+                     depM.setLocationRelativeTo(null);
                      depM.setVisible(true);
                      dispose();
                      

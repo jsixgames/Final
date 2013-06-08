@@ -57,6 +57,13 @@ public class AtualizarEst extends JFrame {
             public void actionPerformed(ActionEvent ae) {
 
                     EstoquePaulistaController control = null;
+                    
+                    
+                    if(jTextField15.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Necessario definir uma quantidade para o produto");
+                    }else if(Integer.parseInt(jTextField15.getText()) < 1){
+                        JOptionPane.showMessageDialog(null, "A quantidade deve ser sempre maior ou igual a 0!");
+                    }
                     try {
                         control = new EstoquePaulistaController();
                     } catch (Exception ex) {
@@ -70,7 +77,7 @@ public class AtualizarEst extends JFrame {
                      prod.setCategProd(jTextField14.getText());
                      prod.setQtd(Integer.parseInt(jTextField15.getText()));
                      control.edit(prod);
-                     JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+                     JOptionPane.showMessageDialog(null, "Quantidade alterada com sucesso no estoque!");
                      EstoqueProd vb = new EstoqueProd();
                      vb.setVisible(true);
                      vb.setLocationRelativeTo(null);

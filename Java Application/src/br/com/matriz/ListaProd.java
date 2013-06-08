@@ -32,6 +32,7 @@ public class ListaProd extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ProdutoMenu p = new ProdutoMenu();
+                p.setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }

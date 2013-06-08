@@ -14,6 +14,7 @@ public class MatrizHome extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 DepartamentoMenu d = new DepartamentoMenu();
+                d.setLocationRelativeTo(null);
                 d.setVisible(true);
                 dispose();
             }
@@ -24,6 +25,18 @@ public class MatrizHome extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ProdutoMenu p = new ProdutoMenu();
+                p.setLocationRelativeTo(null);
+                p.setVisible(true);
+                dispose();
+            }
+        });
+        
+        jButton3.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                RelatorioProdutos p = new RelatorioProdutos();
+                p.setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }

@@ -16,6 +16,7 @@ public class DepartamentoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 CadastrarDep cadDep = new CadastrarDep();
+                cadDep.setLocationRelativeTo(null);
                 cadDep.setVisible(true);
                 dispose();
             }
@@ -27,6 +28,7 @@ public class DepartamentoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 AlterarDep altDep = new AlterarDep();
+                altDep.setLocationRelativeTo(null);
                 altDep.setVisible(true);
                 dispose();
             }
@@ -38,6 +40,7 @@ public class DepartamentoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 RemoverDep remDep = new RemoverDep();
+                remDep.setLocationRelativeTo(null);
                 remDep.setVisible(true);
                 dispose();
             }
@@ -49,6 +52,7 @@ public class DepartamentoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ListaDep remDep = new ListaDep();
+                remDep.setLocationRelativeTo(null);
                 remDep.setVisible(true);
                 dispose();
             }
@@ -60,6 +64,7 @@ public class DepartamentoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 MatrizHome m = new MatrizHome();
+                m.setLocationRelativeTo(null);
                 m.setVisible(true);
                 dispose();
             }

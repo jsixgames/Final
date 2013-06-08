@@ -7,7 +7,6 @@ package br.controller;
 
 import br.com.interfaces.EstoquePaulistaRemote;
 import br.com.modelos.EstoquePaulista;
-import br.com.modelos.Produto;
 import java.util.List;
 import java.util.Properties;
 import javax.ejb.EJB;

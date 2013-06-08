@@ -34,6 +34,7 @@ public class RemoverDep extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 DepartamentoMenu dep = new DepartamentoMenu();
+                dep.setLocationRelativeTo(null);
                 dep.setVisible(true);
                 dispose();
             }
@@ -92,6 +93,7 @@ public class RemoverDep extends JFrame {
                 control.remove(dep);
                 JOptionPane.showMessageDialog(null, "Plataforma removida com sucesso!");
                 DepartamentoMenu depM = new DepartamentoMenu();
+                depM.setLocationRelativeTo(null);
                 depM.setVisible(true);
                 dispose();
            

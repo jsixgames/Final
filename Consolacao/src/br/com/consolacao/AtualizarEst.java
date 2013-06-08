@@ -55,6 +55,13 @@ public class AtualizarEst extends JFrame {
             public void actionPerformed(ActionEvent ae) {
 
                     EstoqueConsolacaoController control = null;
+                    
+                    
+                    if(jTextField15.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Necessario definir uma quantidade para o produto");
+                    }else if(Integer.parseInt(jTextField15.getText()) < 1){
+                        JOptionPane.showMessageDialog(null, "A quantidade deve ser sempre maior ou igual a 0!");
+                    }
                     try {
                         control = new EstoqueConsolacaoController();
                     } catch (Exception ex) {
@@ -68,7 +75,7 @@ public class AtualizarEst extends JFrame {
                      prod.setCategProd(jTextField14.getText());
                      prod.setQtd(Integer.parseInt(jTextField15.getText()));
                      control.edit(prod);
-                     JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+                     JOptionPane.showMessageDialog(null, "Quantidade alterada com sucesso no estoque!");
                      EstoqueProd vb = new EstoqueProd();
                      vb.setVisible(true);
                      vb.setLocationRelativeTo(null);
@@ -252,7 +259,7 @@ public class AtualizarEst extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

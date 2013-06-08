@@ -4,17 +4,23 @@
  */
 package br.com.consolacao;
 
-import br.com.modelos.EstoquePaulista;
-import br.com.modelos.ItensVenda;
-import br.tabelas.TabelaEstoque;
+import br.com.modelos.EstoqueConsolacao;
+import br.com.modelos.ItensVendaConsolacao;
+import br.controller.EstoqueConsolacaoController;
+import br.controller.ItensVendaController;
 import br.tabelas.TabelaVendas;
 import br.vendas.ListaDeItensVenda;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,10 +40,53 @@ public class VendasBalcao extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                ListaDeItensVenda.iniciaLista();
                 PaulistaHome ph = new PaulistaHome();
                 ph.setLocationRelativeTo(null);
                 ph.setVisible(true);
                 dispose();
+            }
+
+        });
+        
+        jButton5.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                List<ItensVendaConsolacao> lista = ListaDeItensVenda.getListaItensVenda();
+                ItensVendaController control = null;
+                try {
+                    control = new ItensVendaController();
+                } catch (Exception ex) {
+                    Logger.getLogger(VendasBalcao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                
+                Date data = new Date(System.currentTimeMillis());
+                ItensVendaConsolacao item = new ItensVendaConsolacao();
+                if(lista.size() == 0){
+                    JOptionPane.showMessageDialog(null, "Adicione ao menos um item para compra");
+                }
+                else{
+                    for(int i = 0; i < lista.size();i++){
+                        item.setIdProd(lista.get(i).getId());
+                        item.setNomeProd(lista.get(i).getNomeProd());
+                        item.setPrecoProd(lista.get(i).getPrecoProd());
+                        item.setQtd(lista.get(i).getQtd());
+                        item.setPrecoPinal(lista.get(i).getPrecoPinal());
+                        item.setDataVenda(data);
+                        control.create(item);
+                        atualizaEstoque(item);
+                        ListaDeItensVenda.iniciaLista();
+                    }
+                    JOptionPane.showMessageDialog(null, "Venda efetuada com sucesso!");
+                    PaulistaHome ph = new PaulistaHome();
+                    ph.setLocationRelativeTo(null);
+                    ph.setVisible(true);
+                    dispose();
+                }
+                
             }
 
         });
@@ -54,8 +103,26 @@ public class VendasBalcao extends JFrame {
             }
 
         });
-        List<ItensVenda> lista = ListaDeItensVenda.getListaItensVenda();
+        
+        jButton8.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+                jTable1.getModel().getValueAt(jTable1.getSelectedRow() ,4).toString();
+                ListaDeItensVenda.removeLista(jTable1.getSelectedRow());
+                List<ItensVendaConsolacao> lista = ListaDeItensVenda.getListaItensVenda();
+                TabelaVendas tabelaProd = new TabelaVendas(lista);
+                jTable1.setModel(tabelaProd);
+                jTable1.repaint();
+                jLabel3.setText(precoLista(lista));
+            }
+
+        });
+        
+        List<ItensVendaConsolacao> lista = ListaDeItensVenda.getListaItensVenda();
         TabelaVendas tabelaProd = new TabelaVendas(lista);
+        jLabel3.setText(precoLista(lista));
         jTable1.setModel(tabelaProd);
         jTable1.addMouseListener(new MouseListener() {
 
@@ -85,6 +152,32 @@ public class VendasBalcao extends JFrame {
             }
         });
         jTable1.repaint();
+    }
+    
+    public String precoLista(List<ItensVendaConsolacao> lista){
+        double valor = 0;
+        DecimalFormat deF = new DecimalFormat("0.00");
+        String valors = null;
+        for(int i = 0; i < lista.size(); i++){
+            valor += lista.get(i).getPrecoPinal();
+        }
+        valors  = deF.format(valor);
+        return "R$ "+valors;
+    }
+    
+    
+    public void atualizaEstoque(ItensVendaConsolacao item){
+        EstoqueConsolacao est = new EstoqueConsolacao();
+        EstoqueConsolacaoController control = null;
+        try {
+            control = new EstoqueConsolacaoController();
+        } catch (Exception ex) {
+            Logger.getLogger(VendasBalcao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        est = control.find(item.getIdProd());
+        est.setQtd(est.getQtd() - item.getQtd());
+        control.edit(est);
+    
     }
     
     @SuppressWarnings("unchecked")
@@ -136,7 +229,7 @@ public class VendasBalcao extends JFrame {
         jPanel4.add(jLabel2);
         jPanel4.add(jPanel5);
 
-        jButton4.setText("Voltar");
+        jButton4.setText("Cancelar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -160,7 +253,15 @@ public class VendasBalcao extends JFrame {
             new String [] {
                 "id", "Nome", "Preço", "Qtd", "Preço Total"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null,null},
@@ -214,13 +315,10 @@ public class VendasBalcao extends JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(

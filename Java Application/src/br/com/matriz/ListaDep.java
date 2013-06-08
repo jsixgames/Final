@@ -37,6 +37,7 @@ public class ListaDep extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 DepartamentoMenu p = new DepartamentoMenu();
+                p.setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }

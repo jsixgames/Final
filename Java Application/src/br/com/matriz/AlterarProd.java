@@ -32,6 +32,7 @@ public class AlterarProd extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ProdutoMenu p = new ProdutoMenu();
+                p.setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }
@@ -88,6 +89,7 @@ public class AlterarProd extends JFrame {
                      control.edit(prod);
                      JOptionPane.showMessageDialog(null, "Produto alterada com sucesso!");
                      ProdutoMenu depM = new ProdutoMenu();
+                     depM.setLocationRelativeTo(null);
                      depM.setVisible(true);
                      dispose();
                 }

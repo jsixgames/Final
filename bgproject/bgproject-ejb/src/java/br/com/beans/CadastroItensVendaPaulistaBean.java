@@ -4,8 +4,8 @@
  */
 package br.com.beans;
 
-import br.com.interfaces.ItensVendaRemote;
-import br.com.modelos.ItensVenda;
+import br.com.interfaces.ItensVendaPaulistaRemote;
+import br.com.modelos.ItensVendaPaulista;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,8 +20,8 @@ import javax.persistence.criteria.Root;
  *
  * @author Calebe de Paula Bianchini
  */
-@Stateless(mappedName = "ejb/CadastroItensVendaBean")
-public class CadastroItensVendaBean extends AbstractFacade<ItensVenda> implements ItensVendaRemote {
+@Stateless(mappedName = "ejb/CadastroItensVendaPaulistaBean")
+public class CadastroItensVendaPaulistaBean extends AbstractFacade<ItensVendaPaulista> implements ItensVendaPaulistaRemote {
 
     @PersistenceContext(unitName = "bgproject-ejbPU")
     private EntityManager em;
@@ -32,23 +32,23 @@ public class CadastroItensVendaBean extends AbstractFacade<ItensVenda> implement
     }
     
     @Override
-    public void create(ItensVenda entity) {
+    public void create(ItensVendaPaulista entity) {
         getEntityManager().persist(entity);
     }
 
-    public CadastroItensVendaBean() {
-        super(ItensVenda.class);
+    public CadastroItensVendaPaulistaBean() {
+        super(ItensVendaPaulista.class);
     }
 
     @Override
-        public ItensVenda find(Object id) {
+        public ItensVendaPaulista find(Object id) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<ItensVenda> c = cb.createQuery(ItensVenda.class);
-        Root<ItensVenda> venda = c.from(ItensVenda.class);
+        CriteriaQuery<ItensVendaPaulista> c = cb.createQuery(ItensVendaPaulista.class);
+        Root<ItensVendaPaulista> venda = c.from(ItensVendaPaulista.class);
         c.where(cb.equal(venda.get("id"), cb.parameter(String.class, "id")));
         TypedQuery q = getEntityManager().createQuery(c);
         q.setParameter("id", id);
-        return (ItensVenda) q.getSingleResult();
+        return (ItensVendaPaulista) q.getSingleResult();
     }
 
 

@@ -4,8 +4,6 @@
  */
 package br.com.consolacao;
 
-
-
 import br.com.modelos.EstoqueConsolacao;
 import br.controller.EstoqueConsolacaoController;
 import br.tabelas.TabelaEstoque;

@@ -32,6 +32,7 @@ public class CadastrarDep extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 DepartamentoMenu dep = new DepartamentoMenu();
+                dep.setLocationRelativeTo(null);
                 dep.setVisible(true);
                 dispose();
             }
@@ -57,6 +58,7 @@ public class CadastrarDep extends JFrame {
                      control.create(con);
                      JOptionPane.showMessageDialog(null, "Plataforma adicionado com sucesso");
                      DepartamentoMenu depM = new DepartamentoMenu();
+                     depM.setLocationRelativeTo(null);
                      depM.setVisible(true);
                      dispose();
                      
@@ -189,7 +191,7 @@ public class CadastrarDep extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

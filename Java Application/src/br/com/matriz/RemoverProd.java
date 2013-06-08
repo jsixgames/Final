@@ -36,6 +36,7 @@ public class RemoverProd extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ProdutoMenu p = new ProdutoMenu();
+                p.setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }
@@ -112,6 +113,7 @@ public class RemoverProd extends JFrame {
                      control.remove(prod);
                      JOptionPane.showMessageDialog(null, "Produto removido com sucesso!");
                      ProdutoMenu depM = new ProdutoMenu();
+                     depM.setLocationRelativeTo(null);
                      depM.setVisible(true);
                      dispose();
                 }

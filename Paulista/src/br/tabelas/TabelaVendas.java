@@ -8,8 +8,8 @@ package br.tabelas;
  *
  * @author jeckson
  */
-import br.com.modelos.EstoquePaulista;
-import br.com.modelos.ItensVenda;
+import br.com.modelos.ItensVendaPaulista;
+import java.text.DecimalFormat;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -22,10 +22,10 @@ public class TabelaVendas extends AbstractTableModel {
     private static final int P_FINAL_PROD = 4;
     
   
-    private List<ItensVenda> valores;         
+    private List<ItensVendaPaulista> valores;         
   
     //Esse é um construtor, que recebe a nossa lista de livros   
-    public TabelaVendas(List<ItensVenda> valores) {
+    public TabelaVendas(List<ItensVendaPaulista> valores) {
           this.valores = valores;   
     }   
   
@@ -61,7 +61,7 @@ public class TabelaVendas extends AbstractTableModel {
     @Override
     public Object getValueAt(int row, int column) {   
         //Precisamos retornar o valor da coluna column e da linha row.   
-        ItensVenda titulo = valores.get(row);   
+        ItensVendaPaulista titulo = valores.get(row);   
         if (column == COD_PROD) 
             return titulo.getId();   
         else if (column == NOME_PROD) 
@@ -75,8 +75,8 @@ public class TabelaVendas extends AbstractTableModel {
         return ""; //Nunca deve ocorrer   
     }   
   
-    public void setValueAt(ItensVenda aValue, int rowIndex, int columnIndex) {   
-        ItensVenda titulo = valores.get(rowIndex);   
+    public void setValueAt(ItensVendaPaulista aValue, int rowIndex, int columnIndex) {   
+        ItensVendaPaulista titulo = valores.get(rowIndex);
         //Vamos alterar o valor da coluna columnIndex na linha rowIndex com o valor aValue passado no parâmetro.   
         //Note que vc poderia alterar 2 campos ao invés de um só.   
         if (columnIndex== COD_PROD) 
@@ -85,8 +85,8 @@ public class TabelaVendas extends AbstractTableModel {
             titulo.setNomeProd(aValue.getNomeProd());   
         else if (columnIndex== PRECO_PROD) 
             titulo.setPrecoProd(aValue.getPrecoProd());   
-        else if (columnIndex== P_FINAL_PROD) 
-            titulo.setPrecoPinal(aValue.getPrecoPinal());   
+        else if (columnIndex== P_FINAL_PROD)
+            titulo.setPrecoPinal(aValue.getPrecoPinal());
         else if (columnIndex== QTD_PROD) 
             titulo.setQtd(aValue.getQtd());  
        
@@ -105,7 +105,7 @@ public class TabelaVendas extends AbstractTableModel {
     }   
     //Já que esse tableModel é de livros, vamos fazer um get que retorne um livro inteiro.   
     //Isso elimina a necessidade de chamar o getValueAt() nas telas.   
-    public ItensVenda get(int row) {   
+    public ItensVendaPaulista get(int row) {   
         return valores.get(row);   
     }   
     

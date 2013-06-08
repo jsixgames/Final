@@ -4,8 +4,10 @@
  */
 package br.controller;
 
-import br.com.interfaces.ItensVendaPaulistaRemote;
-import br.com.modelos.ItensVendaPaulista;
+
+import br.com.interfaces.EstoqueConsolacaoRemote;
+import br.com.modelos.EstoqueConsolacao;
+import br.com.modelos.Produto;
 import java.util.List;
 import java.util.Properties;
 import javax.ejb.EJB;
@@ -13,37 +15,38 @@ import javax.naming.InitialContext;
 
 /**
  *
- * @author Jeckson Sacramento Bernardino
+ * @author Calebe de Paula Bianchini
  */
-public class ItensVendaController {
+public class EstoqueConsolacaoController {
 
     @EJB
-    private ItensVendaPaulistaRemote produtoFacade;
+    private EstoqueConsolacaoRemote produtoFacade;
 
-    public ItensVendaController() throws Exception {
+    public EstoqueConsolacaoController() throws Exception {
         Properties props = new Properties();
         props.load(new java.io.FileInputStream("jndi.properties"));
         InitialContext ctx = new InitialContext(props);
-        produtoFacade = (ItensVendaPaulistaRemote) ctx.lookup("ejb/CadastroItensVendaPaulistaBean");
+        produtoFacade = (EstoqueConsolacaoRemote) ctx.lookup("ejb/CadastroEstoqueConsolacaoBean");
     }
 
-    public void create(ItensVendaPaulista entity) {
+    public void create(EstoqueConsolacao entity) {
         produtoFacade.create(entity);
     }
 
-    public void edit(ItensVendaPaulista entity) {
+    public void edit(EstoqueConsolacao entity) {
         produtoFacade.edit(entity);
     }
     
-    public void remove(ItensVendaPaulista entity) {
+    public void remove(EstoqueConsolacao entity) {
         produtoFacade.remove(entity);
     }
     
-    public List<ItensVendaPaulista> findAll() {
+    public List<EstoqueConsolacao> findAll() {
         return (produtoFacade.findAll());
     }
     
-        public ItensVendaPaulista find(Object id) {
+    public EstoqueConsolacao find(Object id) {
         return (produtoFacade.find(id));
     }
+
 }

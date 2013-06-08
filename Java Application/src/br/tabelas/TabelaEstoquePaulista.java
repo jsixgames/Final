@@ -8,23 +8,23 @@ package br.tabelas;
  *
  * @author jeckson
  */
-import br.com.modelos.ItensVendaConsolacao;
+import br.com.modelos.EstoquePaulista;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 
-public class TabelaVendas extends AbstractTableModel {   
+public class TabelaEstoquePaulista extends AbstractTableModel {   
     private static final int COD_PROD = 0;   
     private static final int NOME_PROD = 1;
     private static final int PRECO_PROD = 2;
-    private static final int QTD_PROD = 3;
-    private static final int P_FINAL_PROD = 4;
+    private static final int CATEG_PROD = 3;
+    private static final int QTD_PROD = 4;
     
   
-    private List<ItensVendaConsolacao> valores;         
+    private List<EstoquePaulista> valores;         
   
     //Esse é um construtor, que recebe a nossa lista de livros   
-    public TabelaVendas(List<ItensVendaConsolacao> valores) {
+    public TabelaEstoquePaulista(List<EstoquePaulista> valores) {
           this.valores = valores;   
     }   
   
@@ -50,8 +50,8 @@ public class TabelaVendas extends AbstractTableModel {
             return "Nome";
         if (column == PRECO_PROD) 
             return "Preco";
-        if (column == P_FINAL_PROD) 
-            return "Preço final";
+        if (column == CATEG_PROD) 
+            return "Categoria";
         if (column == QTD_PROD) 
             return "Quantidade";
         return ""; //Nunca deve ocorrer   
@@ -60,22 +60,22 @@ public class TabelaVendas extends AbstractTableModel {
     @Override
     public Object getValueAt(int row, int column) {   
         //Precisamos retornar o valor da coluna column e da linha row.   
-        ItensVendaConsolacao titulo = valores.get(row);   
+        EstoquePaulista titulo = valores.get(row);   
         if (column == COD_PROD) 
             return titulo.getId();   
         else if (column == NOME_PROD) 
             return titulo.getNomeProd(); 
         else if (column == PRECO_PROD) 
             return titulo.getPrecoProd(); 
-        else if (column == P_FINAL_PROD) 
-            return titulo.getPrecoPinal(); 
+        else if (column == CATEG_PROD) 
+            return titulo.getCategProd(); 
         else if (column == QTD_PROD) 
             return titulo.getQtd(); 
         return ""; //Nunca deve ocorrer   
     }   
   
-    public void setValueAt(ItensVendaConsolacao aValue, int rowIndex, int columnIndex) {   
-        ItensVendaConsolacao titulo = valores.get(rowIndex);   
+    public void setValueAt(EstoquePaulista aValue, int rowIndex, int columnIndex) {   
+        EstoquePaulista titulo = valores.get(rowIndex);   
         //Vamos alterar o valor da coluna columnIndex na linha rowIndex com o valor aValue passado no parâmetro.   
         //Note que vc poderia alterar 2 campos ao invés de um só.   
         if (columnIndex== COD_PROD) 
@@ -84,8 +84,8 @@ public class TabelaVendas extends AbstractTableModel {
             titulo.setNomeProd(aValue.getNomeProd());   
         else if (columnIndex== PRECO_PROD) 
             titulo.setPrecoProd(aValue.getPrecoProd());   
-        else if (columnIndex== P_FINAL_PROD) 
-            titulo.setPrecoPinal(aValue.getPrecoPinal());   
+        else if (columnIndex== CATEG_PROD) 
+            titulo.setCategProd(aValue.getCategProd());   
         else if (columnIndex== QTD_PROD) 
             titulo.setQtd(aValue.getQtd());  
        
@@ -104,7 +104,7 @@ public class TabelaVendas extends AbstractTableModel {
     }   
     //Já que esse tableModel é de livros, vamos fazer um get que retorne um livro inteiro.   
     //Isso elimina a necessidade de chamar o getValueAt() nas telas.   
-    public ItensVendaConsolacao get(int row) {   
+    public EstoquePaulista get(int row) {   
         return valores.get(row);   
     }   
     

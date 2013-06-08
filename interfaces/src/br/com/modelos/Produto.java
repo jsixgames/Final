@@ -2,10 +2,16 @@ package br.com.modelos;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Produto implements Serializable {
@@ -16,8 +22,8 @@ public class Produto implements Serializable {
     private Long id;
     private String nome;
     private String depto;
-    private double preco;
-
+    private double preco;        
+    
     public Produto() {
     }
 

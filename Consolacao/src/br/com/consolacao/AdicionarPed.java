@@ -6,11 +6,12 @@ package br.com.consolacao;
 
 
 import br.com.modelos.EstoqueConsolacao;
-import br.com.modelos.ItensVenda;
+import br.com.modelos.ItensVendaConsolacao;
 import br.controller.EstoqueConsolacaoController;
 import br.vendas.ListaDeItensVenda;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -24,7 +25,7 @@ import javax.swing.SpinnerNumberModel;
 public class AdicionarPed extends JFrame {
     
     private Object bean;
-
+    private int qtd = 0;
     /**
      * Creates new customizer CadastrarProd
      */
@@ -35,13 +36,14 @@ public class AdicionarPed extends JFrame {
         jTextField13.setEditable(false);
         jSpinner1.setEnabled(false);
         
+        
         jButton17.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
                 VendasBalcao vb = new VendasBalcao();
-                vb.setVisible(true);
                 vb.setLocationRelativeTo(null);
+                vb.setVisible(true);
                 dispose();
             }
 
@@ -51,6 +53,7 @@ public class AdicionarPed extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if(jTextField12.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Necessario informar ID para busca");
                 }else{
                         EstoqueConsolacaoController control = null;
                     try {
@@ -58,21 +61,35 @@ public class AdicionarPed extends JFrame {
                     } catch (Exception ex) {
                         Logger.getLogger(AdicionarPed.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                              
+                    List<ItensVendaConsolacao> lis = ListaDeItensVenda.getListaItensVenda();
+                        for(int i = 0; i < lis.size();i++ ){
+                            if(lis.get(i).getId() == Long.parseLong(jTextField12.getText())){
+                                qtd += lis.get(i).getQtd();
+                            }
+                            
+                        }
+                    
                     Object index = jTextField12.getText().toString();
                     EstoqueConsolacao est = new EstoqueConsolacao();
                     est = control.find(index);
-                    
-                    jTextField11.setEditable(true);
-                    jTextField13.setEditable(true);
-                    jSpinner1.setEnabled(true);
-                    
-                    jTextField11.setText(est.getNomeProd());
-                    jTextField13.setText(String.valueOf(est.getPrecoProd()));
-                    SpinnerNumberModel model = new SpinnerNumberModel(1, 1, est.getQtd(), 1);
-                    jSpinner1.setModel(model);
-                }
+                    if(est.getQtd() - qtd < 1){
+                        JOptionPane.showMessageDialog(null, "No momento não temos este produto em estoque");
+                        VendasBalcao ven = new VendasBalcao();
+                        ven.setLocationRelativeTo(null);
+                        ven.setVisible(true);
+                        dispose();
+                    }else{
+                        
+                        jTextField11.setEditable(true);
+                        jTextField13.setEditable(true);
+                        jSpinner1.setEnabled(true);
+                        jTextField11.setText(est.getNomeProd());
+                        jTextField13.setText(String.valueOf(est.getPrecoProd()));
+                        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, est.getQtd() - qtd, 1);
+                        jSpinner1.setModel(model);
                 
+                    }
+                }  
                 
             }
 
@@ -82,7 +99,7 @@ public class AdicionarPed extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
-                     ItensVenda prod = new ItensVenda();
+                     ItensVendaConsolacao prod = new ItensVendaConsolacao();
                      prod.setId(Long.parseLong(jTextField12.getText()));
                      prod.setNomeProd(jTextField11.getText().toUpperCase());
                      prod.setPrecoProd(Double.parseDouble(jTextField13.getText()));
@@ -91,6 +108,7 @@ public class AdicionarPed extends JFrame {
                      ListaDeItensVenda.insereLista(prod);
                      JOptionPane.showMessageDialog(null, "Item adicionado com sucesso!");
                      VendasBalcao depM = new VendasBalcao();
+                     depM.setLocationRelativeTo(null);
                      depM.setVisible(true);
                      dispose();
                 
@@ -272,7 +290,7 @@ public class AdicionarPed extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

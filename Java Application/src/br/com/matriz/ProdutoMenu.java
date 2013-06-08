@@ -16,6 +16,7 @@ public class ProdutoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 MatrizHome m = new MatrizHome();
+                m.setLocationRelativeTo(null);
                 m.setVisible(true);
                 dispose();
             }
@@ -27,6 +28,7 @@ public class ProdutoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 CadastrarProd cadProd = new CadastrarProd();
+                cadProd.setLocationRelativeTo(null);
                 cadProd.setVisible(true);
                 dispose();
             }
@@ -38,6 +40,7 @@ public class ProdutoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 AlterarProd altProd = new AlterarProd();
+                altProd.setLocationRelativeTo(null);
                 altProd.setVisible(true);
                 dispose();
             }
@@ -49,6 +52,7 @@ public class ProdutoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 RemoverProd revProd = new RemoverProd();
+                revProd.setLocationRelativeTo(null);
                 revProd.setVisible(true);
                 dispose();
             }
@@ -60,6 +64,7 @@ public class ProdutoMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ListaProd revProd = new ListaProd();
+                revProd.setLocationRelativeTo(null);
                 revProd.setVisible(true);
                 dispose();
             }

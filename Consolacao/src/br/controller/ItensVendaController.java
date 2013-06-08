@@ -4,8 +4,8 @@
  */
 package br.controller;
 
-import br.com.interfaces.ItensVendaRemote;
-import br.com.modelos.ItensVenda;
+import br.com.interfaces.ItensVendaConsolacaoRemote;
+import br.com.modelos.ItensVendaConsolacao;
 import java.util.List;
 import java.util.Properties;
 import javax.ejb.EJB;
@@ -18,32 +18,32 @@ import javax.naming.InitialContext;
 public class ItensVendaController {
 
     @EJB
-    private ItensVendaRemote produtoFacade;
+    private ItensVendaConsolacaoRemote produtoFacade;
 
     public ItensVendaController() throws Exception {
         Properties props = new Properties();
         props.load(new java.io.FileInputStream("jndi.properties"));
         InitialContext ctx = new InitialContext(props);
-        produtoFacade = (ItensVendaRemote) ctx.lookup("ejb/CadastroItensVendaBean");
+        produtoFacade = (ItensVendaConsolacaoRemote) ctx.lookup("ejb/CadastroItensVendaConcolacaoBean");
     }
 
-    public void create(ItensVenda entity) {
+    public void create(ItensVendaConsolacao entity) {
         produtoFacade.create(entity);
     }
 
-    public void edit(ItensVenda entity) {
+    public void edit(ItensVendaConsolacao entity) {
         produtoFacade.edit(entity);
     }
     
-    public void remove(ItensVenda entity) {
+    public void remove(ItensVendaConsolacao entity) {
         produtoFacade.remove(entity);
     }
     
-    public List<ItensVenda> findAll() {
+    public List<ItensVendaConsolacao> findAll() {
         return (produtoFacade.findAll());
     }
     
-        public ItensVenda find(Object id) {
+        public ItensVendaConsolacao find(Object id) {
         return (produtoFacade.find(id));
     }
 }

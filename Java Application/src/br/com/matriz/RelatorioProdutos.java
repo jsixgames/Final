@@ -4,8 +4,15 @@
  */
 package br.com.matriz;
 
+import br.com.modelos.EstoqueConsolacao;
+import br.com.modelos.EstoquePaulista;
+import br.controller.EstoqueConsolacaoController;
+import br.controller.EstoquePaulistaController;
+import br.tabelas.TabelaEstoqueConsolacao;
+import br.tabelas.TabelaEstoquePaulista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -15,6 +22,8 @@ import javax.swing.JFrame;
 public class RelatorioProdutos extends JFrame {
     
     private Object bean;
+    private List<EstoqueConsolacao> listaC;
+    private List<EstoquePaulista> listaP;
 
     /**
      * Creates new customizer CadastrarProd
@@ -26,18 +35,69 @@ public class RelatorioProdutos extends JFrame {
         jTable1.getColumnModel().getColumn(2).setHeaderValue("QTD");     
         jTable1.getColumnModel().getColumn(3).setHeaderValue("Dep.");     
         
+        
         jButton4.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                ProdutoMenu p = new ProdutoMenu();
+                MatrizHome p = new MatrizHome();
+                p.setLocationRelativeTo(null);
                 p.setVisible(true);
                 dispose();
             }
 
         });
         
+        jComboBox2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(jComboBox2.getSelectedItem() == "Paulista"){
+                   listaP = listarProdutosPaulista();
+                   List<EstoquePaulista> lista = listarProdutosPaulista();
+                       TabelaEstoquePaulista tabelaProd = new TabelaEstoquePaulista(lista);
+                       jTable1.setModel(tabelaProd);
+                       jTable1.repaint();
+                   
+                }else{
+                       List<EstoqueConsolacao> lista = listarProdutosConsolacao();
+                       TabelaEstoqueConsolacao tabelaProd = new TabelaEstoqueConsolacao(lista);
+                       jTable1.setModel(tabelaProd);
+                       jTable1.repaint();
+                }
+            
+            
+            }
+        });
+        List<EstoqueConsolacao> lista = listarProdutosConsolacao();
+        TabelaEstoqueConsolacao tabelaProd = new TabelaEstoqueConsolacao(lista);
+        jTable1.setModel(tabelaProd);
+     
+        
+        
     }
+    
+    List<EstoquePaulista> listarProdutosPaulista(){
+           EstoquePaulistaController control = null;
+         try {
+            control = new EstoquePaulistaController();
+         } catch (Exception ex) {
+         }
+             List<EstoquePaulista> lista = control.findAll();
+         return lista;
+
+        }
+    
+    List<EstoqueConsolacao> listarProdutosConsolacao(){
+           EstoqueConsolacaoController control = null;
+         try {
+            control = new EstoqueConsolacaoController();
+         } catch (Exception ex) {
+         }
+             List<EstoqueConsolacao> lista = control.findAll();
+         return lista;
+
+        }
     
     @SuppressWarnings("unchecked")
     
@@ -60,7 +120,6 @@ public class RelatorioProdutos extends JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jComboBox2 = new javax.swing.JComboBox();
@@ -81,7 +140,7 @@ public class RelatorioProdutos extends JFrame {
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 28)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Relatórios de Produtos");
+        jLabel2.setText("Relatórios de Estoque");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel2);
         jPanel4.add(jPanel5);
@@ -93,22 +152,15 @@ public class RelatorioProdutos extends JFrame {
             }
         });
 
-        jButton5.setText("Exportar Excel");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Depto", "Nome", "Preço", "QTD"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
@@ -123,8 +175,6 @@ public class RelatorioProdutos extends JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -134,13 +184,11 @@ public class RelatorioProdutos extends JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consolação", "Paulista" }));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel1.setText("Opções de Filiais: ");
@@ -181,17 +229,12 @@ public class RelatorioProdutos extends JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

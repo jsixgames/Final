@@ -5,17 +5,18 @@
     <jta-data-source>jdbc/sample</jta-data-source>
     <class>br.com.modelos.CadastroCliente</class>
     <class>br.com.modelos.CadastroEndereco</class>
-    <class>br.com.modelos.Produto</class>
     <class>br.com.modelos.Departamento</class>
-    <class>br.com.modelos.EstoquePaulista</class>
-    <class>br.com.modelos.ItensVenda</class>
     <class>br.com.modelos.EstoqueConsolacao</class>
+    <class>br.com.modelos.EstoquePaulista</class>
+    <class>br.com.modelos.ItensVendaConsolacao</class>
+    <class>br.com.modelos.ItensVendaPaulista</class>
+    <class>br.com.modelos.Produto</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
     </properties>
   </persistence-unit>
 </persistence>
