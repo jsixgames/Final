@@ -118,8 +118,7 @@ public class AdicionarEst extends JFrame {
     public void verificaEstoque(Long index){
         EstoquePaulistaController control = null;
         try {
-            control = new EstoquePaulistaController();
-            
+            control = new EstoquePaulistaController();           
         } catch (Exception ex) {
         }
         List<EstoquePaulista> lista = control.findAll();

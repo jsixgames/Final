@@ -26,15 +26,15 @@ public class CadastroDepartamentoBean extends AbstractFacade<Departamento> imple
         super(Departamento.class);
     }
     
-//    @Override
-//        public Departamento find(Object id) {
-//        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-//        CriteriaQuery<Departamento> c = cb.createQuery(Departamento.class);
-//        Root<Departamento> venda = c.from(Departamento.class);
-//        c.where(cb.equal(venda.get("id"), cb.parameter(String.class, "id")));
-//        TypedQuery q = getEntityManager().createQuery(c);
-//        q.setParameter("id", id);
-//        return (Departamento) q.getSingleResult();
-//    }
+    @Override
+        public Departamento find(Object id) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Departamento> c = cb.createQuery(Departamento.class);
+        Root<Departamento> venda = c.from(Departamento.class);
+        c.where(cb.equal(venda.get("id"), cb.parameter(String.class, "id")));
+        TypedQuery q = getEntityManager().createQuery(c);
+        q.setParameter("id", id);
+        return (Departamento) q.getSingleResult();
+    }
     
 }

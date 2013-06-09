@@ -51,5 +51,4 @@ public class CadastroItensVendaPaulistaBean extends AbstractFacade<ItensVendaPau
         return (ItensVendaPaulista) q.getSingleResult();
     }
 
-
 }
